@@ -5,7 +5,6 @@ import com.notix.manager.UserManager;
 import com.notix.model.Employee;
 import com.notix.model.Notification;
 import com.notix.service.NotificationService;
-import com.notix.service.Subscriber;
 import java.util.List;
 import java.util.Scanner;
 
@@ -64,9 +63,9 @@ public class NotiX {
         System.out.println("\nMenu Admin :");
         System.out.println("1. Lister les employés");
         System.out.println("2. Ajouter un employé");
-        System.out.println("3. Envoyer une notification pour un employé");
-        System.out.println("4. Voir les notifications d'un employé");
-        System.out.println("5. Vérifier les services d'abonnement d'un employé");
+        System.out.println("3. Envoyer une notification");
+        System.out.println("4. Voir les notifications");
+        System.out.println("5. Vérifier l'abonnement d'un employé");
         System.out.println("6. Déconnexion");
         System.out.print("Choix : ");
     }
@@ -76,8 +75,7 @@ public class NotiX {
         System.out.println("1. S'abonner à un service");
         System.out.println("2. Se désabonner d'un service");
         System.out.println("3. Voir mes notifications");
-        System.out.println("4. Lister les employés par services abonnés");
-        System.out.println("5. Déconnexion");
+        System.out.println("4. Déconnexion");
         System.out.print("Choix : ");
     }
 
@@ -249,19 +247,7 @@ public class NotiX {
                     System.out.println(notif.toGmailFormat());
                 }
                 break;
-
             case 4:
-                for (NotificationService service : notificationManager.getSubscribedServicesForEmployee(emp)) {
-                    System.out.printf("\nEmployés abonnés à %s :\n", service.getServiceName());
-                    for (Subscriber sub : notificationManager.getSubscribers()) {
-                        if (notificationManager.getSubscribedServicesForEmployee((Employee) sub).contains(service)) {
-                            System.out.printf("- %s (%s)\n", sub.getName(), sub.getEmail());
-                        }
-                    }
-                }
-                break;
-
-            case 5:
                 userManager.logout();
                 System.out.println("Déconnecté.");
                 break;
